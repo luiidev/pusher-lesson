@@ -11,14 +11,17 @@
 |
 */
 
+App::bind('pusher',function($app){
+	$keys = $app['config']->get('services.pusher');
+	return new Pusher($keys['public'],$keys['secret'],$keys['app_id']);
+});
+
 Route::get('/', function () {
     return view('home');
 });
 
 Route::any('test',function(){
-	$pusher = new Pusher('3af9472db014da6465ce','866c7f4b7d79661af725','220398');
-
-	$pusher->trigger('demoChannel','userLikedPost',[]);
+	App::make('pusher')->trigger('demoChannel','userLikedPost',[]);
 
 	return 'Done';
 });
