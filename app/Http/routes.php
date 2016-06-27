@@ -21,7 +21,7 @@ Route::get('/', function () {
 });
 
 Route::any('test',function(){
-	App::make('pusher')->trigger('demoChannel','userLikedPost',[]);
+	App::make('pusher')->trigger('demoChannel','userLikedPost',['title' => 'My Great New Post']);
 
 	return 'Done';
 });

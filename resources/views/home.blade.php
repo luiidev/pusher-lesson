@@ -1,6 +1,5 @@
 @extends('layout')
 
 @section('content')
-	<h1>Count</h1>
-	<output>0</output>
+	<h1>My App Pusher</h1>
 @stop

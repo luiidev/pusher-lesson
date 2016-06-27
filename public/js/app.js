@@ -3,9 +3,24 @@
 
 	var channel = pusher.subscribe('demoChannel');
 
-	channel.bind('userLikedPost', function(data){
-		var output = document.getElementsByTagName('output')[0];
-		var count = parseInt(output.value);
-		output.value = ++count;
-	});
+	window.App = {};
+	App.Listeners = {};
+
+	// Notifier 
+	App.Notifier = function(){
+		this.notify = function(message){
+			console.log(message);
+			document.body.appendChild(document.createTextNode(message));
+		}
+	}
+
+	// Listeners
+    App.Listeners.Post = {
+        whenPostWasPublished: function(data) {
+        	console.log(data);
+            (new App.Notifier).notify(data.title);
+        }
+    };
+
+	channel.bind('userLikedPost', App.Listeners.Post.whenPostWasPublished);
 })();
